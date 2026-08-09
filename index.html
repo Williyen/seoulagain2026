@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>首爾番外篇</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;700;900&family=Source+Serif+4:opsz,wght@8..60,300;8..60,600;8..60,700&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: "Noto Serif TC", "PingFang TC", serif;
+    background: #eef0f2;
+    color: #1c2733;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .cover {
+    background: #14202e;
+    color: #dce4ea;
+    padding: 9vw 7vw 6vw;
+    position: relative;
+    border-bottom: 6px solid #a8935a;
+  }
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(220,228,234,0.03) 39px, rgba(220,228,234,0.03) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(220,228,234,0.03) 39px, rgba(220,228,234,0.03) 40px);
+    pointer-events: none;
+  }
+  .cover-corner {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.6rem;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #a8935a;
+    text-align: right;
+    line-height: 1.6;
+  }
+  .cover-eyebrow {
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #a8935a;
+    margin-bottom: 1.6rem;
+  }
+  .cover-title {
+    font-size: clamp(2.4rem, 9vw, 3.8rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .cover-title { color: #a8935a; }
+  .cover-title span { color: #dce4ea; }
+  .cover-sub {
+    margin-top: 1.3rem;
+    font-size: 13.5px;
+    color: #8b98a5;
+    max-width: 30em;
+    font-weight: 300;
+  }
+  .cover-manifest {
+    margin-top: 2.6rem;
+    border-top: 1px solid rgba(168,147,90,0.3);
+    padding-top: 1.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem 2rem;
+    font-family: "Courier New", monospace;
+    font-size: 11.5px;
+    color: #8b98a5;
+  }
+  .cover-manifest b { color: #dce4ea; font-weight: 400; }
+  .cover-manifest .full { grid-column: 1 / -1; }
+
+  .index {
+    background: #14202e;
+    display: flex;
+    border-top: 1px solid rgba(168,147,90,0.2);
+  }
+  .index-item {
+    flex: 1;
+    padding: 1.3rem 1.6rem;
+    border-right: 1px solid rgba(168,147,90,0.2);
+  }
+  .index-item:last-child { border-right: none; }
+  .index-num {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #a8935a;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .index-title { color: #dce4ea; font-size: 14px; font-weight: 400; line-height: 1.4; }
+
+  .page {
+    padding: 3.4rem 7vw;
+    background: #fff;
+    border-bottom: 1px solid #d4dae0;
+    position: relative;
+  }
+  .page-stamp {
+    position: absolute;
+    top: 2.4rem;
+    right: 7vw;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #a8935a;
+    border: 1px solid #a8935a;
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+    transform: rotate(2deg);
+  }
+  .page-num {
+    font-family: "Courier New", monospace;
+    font-size: 10.5px;
+    color: #8b98a5;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+  }
+  .page-title {
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+    font-weight: 700;
+    color: #14202e;
+    max-width: 20em;
+    letter-spacing: -0.005em;
+  }
+  .page-sub {
+    margin-top: 0.6rem;
+    font-size: 13px;
+    color: #5c6b78;
+    max-width: 32em;
+    font-weight: 300;
+  }
+
+  .schedule {
+    margin-top: 2.2rem;
+    border-top: 1px solid #d4dae0;
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eceff2;
+  }
+  .entry-time {
+    font-family: "Courier New", monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #14202e;
+    padding-top: 2px;
+  }
+  .entry-time.quiet { color: #a8b2bc; font-weight: 400; font-size: 11px; }
+  .entry-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #14202e;
+    letter-spacing: -0.005em;
+  }
+  .entry-name a { color: inherit; text-decoration: none; border-bottom: 1px solid #a8935a; }
+  .entry-kr { font-size: 10.5px; color: #a8b2bc; margin-top: 2px; }
+  .entry-note { font-size: 12.5px; color: #5c6b78; margin-top: 0.5rem; line-height: 1.75; font-weight: 300; letter-spacing: 0.01em; }
+  .entry-note em { font-style: normal; color: #8a6f2e; }
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-family: "Courier New", monospace;
+    color: #8a6f2e;
+    border: 1px solid #a8935a;
+    padding: 1px 6px;
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+  }
+
+  .transit {
+    font-size: 10.5px;
+    color: #a8b2bc;
+    padding: 0.4rem 0 0.4rem 60px;
+    font-family: "Courier New", monospace;
+    border-bottom: 1px solid #eceff2;
+  }
+  .transit::before { content: "→ "; }
+
+  .manifest-section {
+    background: #14202e;
+    color: #dce4ea;
+    padding: 3.4rem 7vw;
+  }
+  .manifest-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .manifest-eyebrow {
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    color: #a8935a;
+    letter-spacing: 0.15em;
+    border-bottom: 1px solid rgba(168,147,90,0.25);
+    padding-bottom: 1.3rem;
+    margin-bottom: 1.6rem;
+  }
+  .ticket {
+    border: 1px solid rgba(168,147,90,0.3);
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .ticket-label {
+    font-family: "Courier New", monospace;
+    font-size: 9.5px;
+    color: #a8935a;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+  }
+  .ticket-name { font-size: 15px; font-weight: 700; margin-bottom: 0.3rem; }
+  .ticket-detail { font-size: 11.5px; color: #8b98a5; margin-top: 2px; }
+  .ticket-detail a { color: #a8935a; }
+  .ticket-status { margin-top: 0.6rem; font-family: "Courier New", monospace; font-size: 10.5px; }
+  .status-ok { color: #7d9b7d; }
+  .status-wait { color: #c19a5c; }
+
+  .notes-section { padding: 3.4rem 7vw 5rem; background: #eef0f2; }
+  .notes-title { font-size: 1.2rem; font-weight: 700; color: #14202e; margin-bottom: 1.6rem; }
+  .note-row {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #d4dae0;
+    font-size: 12.5px;
+    color: #3d4a56;
+    line-height: 1.7;
+  }
+  .note-row b { color: #14202e; }
+  .note-mark { font-family: "Courier New", monospace; color: #a8935a; font-weight: 700; font-size: 11px; }
+
+  footer {
+    text-align: center;
+    padding: 2.4rem;
+    background: #14202e;
+    color: #6b7885;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+
+  @media (max-width: 640px) {
+    .index { flex-direction: column; }
+    .index-item { border-right: none; border-bottom: 1px solid rgba(168,147,90,0.2); }
+    .cover-manifest { grid-template-columns: 1fr; }
+    .page-stamp { position: static; display: inline-block; margin-top: 1rem; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-corner">SEC. II<br>AUTUMN</div>
+  <div class="cover-eyebrow">TRAVEL DOCUMENT · SEOUL</div>
+  <div class="cover-title">番外篇<span>・首爾</span></div>
+  <p class="cover-sub">延續七月的鐘路安國，沿新聞史、金融殖民與軍事防禦的軸線，讀城市如何記得自己。</p>
+  <div class="cover-manifest">
+    <div>去程　<b>OZ714 韓亞航空</b></div>
+    <div>9/25（五）16:55 → 20:25</div>
+    <div>回程　<b>IT603 台灣虎航</b></div>
+    <div>9/29（二）00:30 → 02:15</div>
+    <div class="full">住宿　<b>Kanso Stay</b>　鐘路2街，三一大路395종로빌딩6樓　9/25–9/28</div>
+  </div>
+</div>
+
+<div class="index">
+  <div class="index-item">
+    <div class="index-num">9.25 FRI</div>
+    <div class="index-title">抵達</div>
+  </div>
+  <div class="index-item">
+    <div class="index-num">9.26 SAT</div>
+    <div class="index-title">新聞・條約・宮苑</div>
+  </div>
+  <div class="index-item">
+    <div class="index-num">9.27 SUN</div>
+    <div class="index-title">廣藏市場＋南漢山城</div>
+  </div>
+  <div class="index-item">
+    <div class="index-num">9.28 MON</div>
+    <div class="index-title">祭壇・城市・記者</div>
+  </div>
+</div>
+
+<!-- D0 -->
+<div class="page">
+  <div class="page-stamp">ENTRY 00</div>
+  <div class="page-num">9 / 25 FRIDAY</div>
+  <div class="page-title">抵達日</div>
+  <div class="page-sub">傍晚落地，AREX直達首爾站，轉地鐵至鐘閣，步行入住。</div>
+
+  <div class="schedule">
+    <div class="entry">
+      <div class="entry-time">20:25</div>
+      <div>
+        <div class="entry-name">抵達仁川機場 T2</div>
+        <div class="entry-note">入境。SES登記中心已過營運時間（07:00–18:00），改於9/28首爾站辦理。</div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">21:50</div>
+      <div>
+        <div class="entry-name">AREX直達列車</div>
+        <div class="entry-note">仁川T2 → 首爾站，已預訂。</div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time quiet">約 23:00</div>
+      <div>轉地鐵1號線至鐘閣站，步行入住Kanso Stay</div>
+    </div>
+  </div>
+</div>
+
+<!-- D1 -->
+<div class="page">
+  <div class="page-stamp">ENTRY 01</div>
+  <div class="page-num">9 / 26 SATURDAY</div>
+  <div class="page-title">新聞・條約・宮苑</div>
+  <div class="page-sub">從韓國新聞史開場，走進乙巳條約簽署的那個房間，午後轉入昌德宮後苑的林蔭，夜裡上船看漢江。</div>
+
+  <div class="schedule">
+    <div class="entry"><div class="entry-time quiet">早餐</div><div>自理（飯店不含早餐）</div></div>
+    <div class="transit">光化門廣場，步行約10分</div>
+    <div class="entry"><div class="entry-time">09:40</div><div>出發，步行前往新聞博物館</div></div>
+    <div class="entry">
+      <div class="entry-time">10:00</div>
+      <div>
+        <div class="entry-name">新聞博物館<span class="badge">HIST</span></div>
+        <div class="entry-kr">신문박물관 PRESSEUM · 世宗大路152，一民美術館5–6樓</div>
+        <div class="entry-note">韓國新聞史陳列，週二至週日10:00–18:30開放。<em>你的新聞學背景在這裡有最直接的呼應。</em>停留約1小時。</div>
+      </div>
+    </div>
+    <div class="transit">步行前往德壽宮方向，約15分</div>
+    <div class="entry">
+      <div class="entry-time">11:15</div>
+      <div>
+        <div class="entry-name">重明殿<span class="badge">HIST</span></div>
+        <div class="entry-kr">중명전 · 德壽宮旁</div>
+        <div class="entry-note">1905年乙巳條約簽署地，朝鮮外交主權喪失的具體現場。免費入場，停留約30分鐘。</div>
+      </div>
+    </div>
+    <div class="transit">11:45 出發，地鐵前往安國站，約15分 · 12:15 抵達昌德宮報到</div>
+    <div class="entry">
+      <div class="entry-time">12:30</div>
+      <div>
+        <div class="entry-name">昌德宮後苑（秘苑）中文導覽<span class="badge">UNESCO</span></div>
+        <div class="entry-kr">창덕궁 후원 · 비원</div>
+        <div class="entry-note">須事先線上預約，參觀日前6天韓國時間10:00開放。<em>導覽約90分鐘，必須跟隊，不可自由參觀。林蔭步道，是全天最涼爽的時段與位置。</em></div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">14:15</div>
+      <div>
+        <div class="entry-name">昌德宮本殿<span class="badge">UNESCO</span></div>
+        <div class="entry-kr">창덕궁</div>
+        <div class="entry-note">1997年列為世界文化遺產，朝鮮五大宮中保存最完整者。順應地形而建，與自然融合的宮殿配置是其被列遺產的核心價值。<em>庭院曝曬，視體感決定停留時間。</em></div>
+      </div>
+    </div>
+    <div class="entry"><div class="entry-time quiet">15:00</div><div>午餐（安國、仁寺洞一帶）</div></div>
+    <div class="entry"><div class="entry-time quiet">16:30</div><div>回飯店休息，避開午後高溫</div></div>
+    <div class="transit">地鐵前往汝矣島，約30分</div>
+    <div class="entry"><div class="entry-time">19:00</div><div>抵達汝矣島碼頭</div></div>
+    <div class="entry">
+      <div class="entry-time">19:30</div>
+      <div>
+        <div class="entry-name">別光極光遊輪<span class="badge">TICKET</span></div>
+        <div class="entry-kr">별빛 오로라 크루즈 · 汝矣島T出發</div>
+        <div class="entry-note">漢江夜景遊70分鐘，途經盤浦大橋看彩虹噴泉，船上表演。成人37,000韓元（線上優惠價）。每日19:30固定班次。</div>
+      </div>
+    </div>
+    <div class="entry"><div class="entry-time quiet">20:40</div><div>返回鐘路</div></div>
+    <div class="entry"><div class="entry-time quiet">21:00</div><div>宵夜（鐘路一帶）</div></div>
+  </div>
+</div>
+
+<!-- D2 -->
+<div class="page">
+  <div class="page-stamp">ENTRY 02</div>
+  <div class="page-num">9 / 27 SUNDAY</div>
+  <div class="page-title">廣藏市場＋南漢山城</div>
+  <div class="page-sub">百年市場的日常，接1907年遭日軍破壞的軍事防禦最後象徵。</div>
+
+  <div class="schedule">
+    <div class="entry"><div class="entry-time quiet">早餐</div><div>自理</div></div>
+    <div class="transit">地鐵前往廣藏市場，約10分</div>
+    <div class="entry">
+      <div class="entry-time">09:30</div>
+      <div>
+        <div class="entry-name">廣藏市場<span class="badge">HIST</span></div>
+        <div class="entry-kr">광장시장</div>
+        <div class="entry-note">1905年開業，首爾最老傳統市場。走過看看攤商陳列與空間結構即可。停留約40分鐘。</div>
+      </div>
+    </div>
+    <div class="transit">地鐵前往明洞，約10分</div>
+    <div class="entry">
+      <div class="entry-time">10:30</div>
+      <div>
+        <div class="entry-name">韓國銀行貨幣博物館<span class="badge">ARCH</span></div>
+        <div class="entry-kr">한국은행 화폐박물관 · 明洞</div>
+        <div class="entry-note">1912年建成，文藝復興樣式石造建築，韓國第一座裝設電梯的建築，日治金融殖民代表作。免費入場，10:00–17:00。停留約1小時。</div>
+      </div>
+    </div>
+    <div class="entry"><div class="entry-time quiet">11:45</div><div>午餐（明洞周邊）</div></div>
+    <div class="transit">地鐵8號線前往산성역（山城站），約1小時</div>
+    <div class="entry">
+      <div class="entry-time">13:00</div>
+      <div>
+        <div class="entry-name">산성역轉9-1번公車</div>
+        <div class="entry-note">週末限定直達班次，不繞路上南漢山城。<em>班次不穩，等太久可改叫計程車，車程約10–15分鐘，約9,000–13,000韓元。</em><br>叫車目的地輸入：<b>남한산성 로터리</b> 或 <b>남한산성행궁</b></div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">13:30</div>
+      <div>
+        <div class="entry-name">南漢山城<span class="badge">UNESCO</span></div>
+        <div class="entry-kr">남한산성</div>
+        <div class="entry-note">1907年遭日軍破壞的世界遺產，1636年丙子胡亂朝鮮仁祖被清軍圍困47天的歷史現場。<em>朝鮮軍事防禦的最後象徵，與殖民破壞的疊層。</em>沿城牆步行。</div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">15:00</div>
+      <div>
+        <div class="entry-name">南漢山城歷史館</div>
+        <div class="entry-kr">남한산성역사관</div>
+        <div class="entry-note">丙子胡亂歷史與城郭建築工法陳列。</div>
+      </div>
+    </div>
+    <div class="transit">下山，公車轉地鐵返回鐘路，約1小時</div>
+    <div class="entry"><div class="entry-time quiet">17:30</div><div>抵達鐘路</div></div>
+    <div class="entry"><div class="entry-time">18:00</div><div><div class="entry-name">益善洞或仁寺洞收尾<span class="badge">SHOP</span></div></div></div>
+    <div class="entry"><div class="entry-time quiet">19:30</div><div>晚餐</div></div>
+    <div class="entry">
+      <div class="entry-time">20:30</div>
+      <div>
+        <div class="entry-name">식물 SIKMUL<span class="badge">SHOP</span></div>
+        <div class="entry-kr">鍾路3街站4號出口步行2分，益善洞巷弄</div>
+        <div class="entry-note">白天咖啡廳，晚上變酒吧，古風家具、手工茶飲。營業至23:00（最後點餐22:30）。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- D3 -->
+<div class="page">
+  <div class="page-stamp">ENTRY 03</div>
+  <div class="page-num">9 / 28 MONDAY</div>
+  <div class="page-title">祭壇・城市・記者</div>
+  <div class="page-sub">從蓋在迎賓館舊址上的飯店開場，讀一座被廢的祭壇，午後回到1/1500的首爾模型與一名AP記者的書房。</div>
+
+  <div class="schedule">
+    <div class="entry"><div class="entry-time quiet">早餐</div><div>自理</div></div>
+    <div class="entry"><div class="entry-time quiet">09:00</div><div>退房</div></div>
+    <div class="entry"><div class="entry-time quiet">09:30</div><div>
+      <div>首爾站寄存行李</div>
+      <div class="entry-note">同時辦理SES登記。首爾站出張所，공항철도首爾站地下2樓，平日09:00–18:00。</div>
+    </div></div>
+    <div class="transit">地鐵4號線→3號線前往東大入口站，約25分</div>
+    <div class="entry">
+      <div class="entry-time">11:00</div>
+      <div>
+        <div class="entry-name">新羅飯店 · THE LIBRARY 早午餐<span class="badge">SHOP</span></div>
+        <div class="entry-kr">신라호텔 · 中區東湖路249</div>
+        <div class="entry-note">1979年開業前，此地為李王家迎賓館舊址，日治時期作為總督府迎賓設施，戰後改為國賓館。飯店庭園內仍保留部分舊迎賓館建築。<em>一樓大廳酒廊開放非住客，不需訂位，一人入座無妨。</em>咖啡與輕食約3–4萬韓元。停留約1.5小時。</div>
+      </div>
+    </div>
+    <div class="transit">步行至獎忠壇公園，約5分</div>
+    <div class="entry">
+      <div class="entry-time">12:30</div>
+      <div>
+        <div class="entry-name">獎忠壇公園<span class="badge">HIST</span></div>
+        <div class="entry-kr">장충단공원 · 新羅飯店正對面</div>
+        <div class="entry-note">1900年高宗為紀念乙未事變殉難將士所建的祭壇舊址。<em>日治時期祭壇被廢、改建為公園——一個紀念抗日殉難者的空間，被殖民政府抹去功能。</em>現存獎忠壇碑。沿南山北麓步道散步。停留約40分鐘。</div>
+      </div>
+    </div>
+    <div class="transit">步行前往南山谷韓屋村，約15分</div>
+    <div class="entry">
+      <div class="entry-time">13:15</div>
+      <div>
+        <div class="entry-name">南山谷韓屋村<span class="badge">HIST</span></div>
+        <div class="entry-kr">남산골한옥마을</div>
+        <div class="entry-note">五棟朝鮮時期韓屋移建保存，傳統庭園與千年時空膠囊廣場。免費入場，比北村安靜許多，觀光客少。停留約45分鐘。</div>
+      </div>
+    </div>
+    <div class="transit">地鐵前往光化門站，約25分</div>
+    <div class="entry">
+      <div class="entry-time">14:45</div>
+      <div>
+        <div class="entry-name">首爾歷史博物館<span class="badge">HIST</span></div>
+        <div class="entry-kr">서울역사박물관 · 慶熙宮舊址</div>
+        <div class="entry-note">2002年開館，展示朝鮮到現代首爾城市發展史，含日治時期城市規劃變遷。含1/1500首爾城市模型。中英日韓四語標示，免費入場，不需預約。停留約1小時。</div>
+      </div>
+    </div>
+    <div class="transit">地鐵前往獨立門站，約15分</div>
+    <div class="entry">
+      <div class="entry-time">16:00</div>
+      <div>
+        <div class="entry-name">딜쿠샤（Dilkusha）<span class="badge">HIST</span></div>
+        <div class="entry-kr">앨버트 테일러 가옥 · 行村洞</div>
+        <div class="entry-note">1923年建成，AP通訊記者Albert Taylor宅邸。他1919年後任AP特派員，將三一運動與堤岩里屠殺事件傳向國際媒體——<em>殖民時期國際新聞傳播史的具體現場。</em>免費自由參觀，週二至週日09:00–18:00，不需預約。停留約1小時。</div>
+      </div>
+    </div>
+    <div class="transit">回鐘路方向，最後採購</div>
+    <div class="entry"><div class="entry-time quiet">18:30</div><div>前往首爾站</div></div>
+    <div class="entry"><div class="entry-time quiet">19:00</div><div>首爾站取行李</div></div>
+    <div class="entry"><div class="entry-time">19:30</div><div>搭AREX前往仁川機場</div></div>
+    <div class="entry">
+      <div class="entry-time">20:15</div>
+      <div>
+        <div class="entry-name">抵達仁川機場</div>
+        <div class="entry-note">晚餐、免稅購物。</div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">23:00</div>
+      <div>
+        <div class="entry-name">開始辦理登機</div>
+        <div class="entry-note">台灣虎航建議提前2–3小時。</div>
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-time">00:30</div>
+      <div>
+        <div class="entry-name">IT603 起飛</div>
+        <div class="entry-note">台灣虎航，Terminal 1 → Terminal 1，飛行時間2小時45分。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="manifest-section">
+  <div class="manifest-title">票券與訂位</div>
+  <div class="manifest-eyebrow">TICKETS · BOOKINGS · CONFIRMATIONS</div>
+
+  <div class="ticket">
+    <div class="ticket-label">機場快線 · 去程</div>
+    <div class="ticket-name">AREX 直達列車</div>
+    <div class="ticket-detail">9/25（五）21:50 仁川T2 → 首爾站</div>
+    <div class="ticket-status status-ok">已預訂</div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-label">AIRFARE · OUTBOUND</div>
+    <div class="ticket-name">OZ714 韓亞航空</div>
+    <div class="ticket-detail">9/25（五）16:55 桃園T2 → 20:25 仁川T2</div>
+    <div class="ticket-detail">TWD 6,882（含稅）</div>
+    <div class="ticket-status status-ok">已確認 · FKB47G</div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-label">AIRFARE · RETURN</div>
+    <div class="ticket-name">IT603 台灣虎航</div>
+    <div class="ticket-detail">9/29（二）00:30 仁川T1 → 02:15 桃園T1</div>
+    <div class="ticket-detail">TWD 3,978（含15公斤託運） · 座位28A</div>
+    <div class="ticket-status status-ok">已確認 · F7J4YZ</div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-label">ADMISSION</div>
+    <div class="ticket-name">昌德宮後苑（秘苑）中文導覽</div>
+    <div class="ticket-detail">9/26（六）12:30 中文場 · 導覽約90分鐘</div>
+    <div class="ticket-detail">預約：<a href="https://ticket.uforus.co.kr/web/main?shopEncode=&lang=en">ticket.uforus.co.kr</a></div>
+    <div class="ticket-status status-wait">9/20（日）台灣時間09:00開搶</div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-label">EXCURSION</div>
+    <div class="ticket-name">별빛 오로라 크루즈（漢江夜遊船）</div>
+    <div class="ticket-detail">9/26（六）19:30 · 汝矣島T出發</div>
+    <div class="ticket-detail">成人37,000韓元（線上優惠價）</div>
+    <div class="ticket-detail">預約：<a href="http://aracruise.co.kr">aracruise.co.kr</a></div>
+    <div class="ticket-status status-wait">9月班次尚未公告，持續關注官網</div>
+  </div>
+
+  <div class="ticket">
+    <div class="ticket-label">LODGING</div>
+    <div class="ticket-name">Kanso Stay 간소스테이</div>
+    <div class="ticket-detail">鐘路2街，三一大路395종로빌딩6樓</div>
+    <div class="ticket-detail">9/25 – 9/28（三晚）</div>
+  </div>
+</div>
+
+<div class="notes-section">
+  <div class="notes-title">待辦事項</div>
+
+  <div class="note-row"><div class="note-mark">01</div><div><b>昌德宮後苑（秘苑）預約</b> — 9/26 12:30中文場次，<b>9/20（日）台灣時間09:00開搶</b>，網址 <a href="https://ticket.uforus.co.kr/web/main?shopEncode=&lang=en" style="color:#8a6f2e;">ticket.uforus.co.kr</a>，搶到後20分鐘內完成付款</div></div>
+  <div class="note-row"><div class="note-mark">02</div><div><b>별빛오로라크루즈訂票</b> — 9月班次尚未公告，需持續關注官網 aracruise.co.kr 公告後再訂票（目前僅公告至8月）</div></div>
+  <div class="note-row"><div class="note-mark">03</div><div><b>딜쿠샤中文導覽</b>（可選）— 若想要中文解說，電話 +82-70-4126-8853 預約</div></div>
+  <div class="note-row"><div class="note-mark">04</div><div><b>貨幣兌換</b> — 確認延續七月的WOWPass或另外準備現金</div></div>
+  <div class="note-row"><div class="note-mark">05</div><div><b>首爾站置物櫃</b> — 確認大型行李適用櫃位與價格</div></div>
+  <div class="note-row"><div class="note-mark">06</div><div><b>SES登記</b> — 9/28於首爾站出張所辦理（공항철도首爾站地下2樓，平日09:00–18:00），供未來入境使用</div></div>
+  <div class="note-row"><div class="note-mark">07</div><div><b>虎航登機</b> — 15公斤託運已加購，注意提前2–3小時到機場報到</div></div>
+</div>
+
+<footer>SEOUL · SECTION II · 地景即記憶</footer>
+
+</body>
+</html>
